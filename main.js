@@ -87,6 +87,7 @@ async function saveBoards() {
     }
 }
 
+
 async function loadBoards() {
     try {
         console.log('🔄 Frontend calling loadBoards...');
