@@ -1,0 +1,44 @@
+{
+  "name": "my-kanban-app",
+  "version": "1.0.0",
+  "description": "Minimalistic Kanban",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --linux",
+    "build-win": "electron-builder build --win",
+    "build-linux": "electron-builder build --linux",
+
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "author": "Hashim Jafri",
+  "build": {
+    "appId": "com.yourname.kanban",
+    "productName": "Kanban",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png",
+      "category": "Office"
+    },
+    "files": [
+      "**/*",
+      "!dist/**/*",
+      "!*.md"
+    ],
+    "asar": true
+  },
+  "devDependencies": {
+    "electron": "^32.3.3",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0"
+  }
+}

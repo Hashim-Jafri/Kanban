@@ -1,0 +1,182 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalist Kanban</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative circles -->
+  <div class="circle circle-1"></div>
+  <div class="circle circle-2"></div>
+  <div class="circle circle-3"></div>
+  <div class="circle circle-4"></div>
+  <div class="circle circle-5"></div>
+
+  <!-- Sidebar -->
+  <div class="sidebar-container" id="sidebarContainer">
+    <div class="sidebar-hamburger" id="sidebarToggle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </div>
+  
+    <div class="sidebar-wrapper">
+      <ul class="sidebar-list" id="boardsList"></ul>
+    
+      <button class="add-board-btn" id="addBoardBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>Add New Board</span>
+      </button>
+    
+      <button class="sidebar-settings-btn" id="settingsBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="sidebar-settings-text">Settings</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="app-header">
+      <h1 class="board-title" id="boardTitle">Personal Tasks</h1>
+    </div>
+    <div id="app">
+      <div id="zoom-container">
+        <div id="kanbanBoard"></div>
+      </div>
+      <div id="zoom-indicator" style="
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+">
+    100%
+</div>
+<button id="resetZoomBtn" style="
+    position: absolute;
+    bottom: 16px;
+    right: 90px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 12px;
+    padding: 4px 8px;
+    cursor: pointer;
+    z-index: 101;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+">
+    ↻
+</button>
+    </div>
+    <button class="add-list-btn" id="addListBtn">+</button>
+  </div>
+
+  <!-- Modals — static, always present -->
+  <div class="modal-backdrop" id="addListModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New List</h3>
+        <button class="close-modal" id="closeAddListModal">&times;</button>
+      </div>
+      <div class="modal-form">
+        <input type="text" id="listNameInput" placeholder="List name" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelAddList">Cancel</button>
+        <button class="btn btn-primary" id="createListBtn">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="addBoardModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create New Board</h3>
+        <button class="close-modal" id="closeAddBoardModal">&times;</button>
+      </div>
+      <div class="modal-form">
+        <input type="text" id="boardNameInput" placeholder="Board name" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelAddBoard">Cancel</button>
+        <button class="btn btn-primary" id="createBoardBtn">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="deleteListModal">
+    <div class="modal">
+      <div class="confirm-modal">
+        <h3 class="modal-title">Delete List</h3>
+        <p>Are you sure you want to delete this list and all its cards?</p>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelDeleteList">Cancel</button>
+          <button class="btn btn-primary" id="confirmDeleteListBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="deleteBoardModal">
+    <div class="modal">
+      <div class="confirm-modal">
+        <h3 class="modal-title">Delete Board</h3>
+        <p>Are you sure you want to delete this board and all its lists and cards?</p>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelDeleteBoard">Cancel</button>
+          <button class="btn btn-primary" id="confirmDeleteBoardBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop edit-card-modal" id="editCardModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Card</h3>
+        <button class="close-modal" id="closeEditCardModal">&times;</button>
+      </div>
+      <div class="modal-form">
+        <div class="edit-card-form">
+          <div class="form-group">
+            <label for="editCardTitle">Title</label>
+            <input type="text" id="editCardTitle" placeholder="Task title" />
+          </div>
+          <div class="form-group">
+            <label for="editCardDescription">Description</label>
+            <textarea id="editCardDescription" placeholder="Description (optional)"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelEditCard">Cancel</button>
+        <button class="btn btn-primary" id="saveEditCard">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

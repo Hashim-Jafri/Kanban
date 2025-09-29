@@ -1,0 +1,1183 @@
+/* ======================
+   🎨 THEME VARIABLES — DEFINE ALL COLORS HERE
+   Change these to instantly transform your entire UI
+====================== */
+
+:root {
+    --zoom: 1;
+
+    --main-bg: #f8f9fa;
+    --item-hover: #f1f3f4;
+    --secondary-bg: #2c3e50;
+    --main-container-bg: #ffffff;
+    --container-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
+    --text-color: #2c3e50;
+    --tooltip-bg: #2c3e50;
+    --accent-color: #3498db;
+    --border-color: #e1e8ed;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --column-bg: #f8f9fa;
+    --delete-color: #e74c3c;
+    --subtext-color: #6c757d;
+    --card-bg: #ffffff;
+
+    /* ✅ NEW: RGB versions of key colors for transparent tints */
+    --column-bg-rgb: 248, 249, 250; /* RGB of #f8f9fa */
+    --accent-color-rgb: 52, 152, 219; /* RGB of #3498db */
+    --card-bg-rgb: 255, 255, 255;     /* RGB of #ffffff */
+    --main-bg-rgb: 248, 249, 250;     /* RGB of #f8f9fa */
+    --text-color-rgb: 44, 62, 80;     /* RGB of #2c3e50 */
+
+    /* ✅ Aesthetic Circles — Soft Blue & Teal Tones */
+    --circle-1: rgba(52, 152, 219, 0.06);
+    --circle-2: rgba(72, 209, 204, 0.05);
+    --circle-3: rgba(52, 152, 219, 0.10);
+    --circle-4: rgba(52, 152, 219, 0.12);
+    --circle-5: rgba(52, 152, 219, 0.15);
+    --circle-6: rgba(248, 249, 250, 0.8);
+
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 92px;
+}
+
+body.dark {
+    --main-bg: #121212;
+    --item-hover: #1a1a1a;
+    --secondary-bg: #5a677e;
+    --main-container-bg: #1f1f1f;
+    --container-shadow: rgba(0, 0, 0, 0.7) 0px 4px 16px 0px;
+    --text-color: #d0d8e2;
+    --tooltip-bg: #1a1a1a;
+    --accent-color: #5a677e;
+    --border-color: #4a5568;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --column-bg: #2a2a2a;
+    --card-bg: #333333;
+    --delete-color: #e74c3c;
+    --subtext-color: #8a97b0;
+
+    /* ✅ NEW: RGB versions for dark mode */
+    --column-bg-rgb: 42, 42, 42;       /* RGB of #2a2a2a */
+    --accent-color-rgb: 90, 103, 126;  /* RGB of #5a677e */
+    --card-bg-rgb: 51, 51, 51;        /* RGB of #333333 */
+    --main-bg-rgb: 18, 18, 18;        /* RGB of #121212 */
+    --text-color-rgb: 208, 216, 226;  /* RGB of #d0d8e2 */
+
+    /* ✅ Faded Neutral Overlays — mist on glass (no blue!) */
+    --circle-1: rgba(208, 216, 226, 0.02);
+    --circle-2: rgba(74, 85, 104, 0.01);
+    --circle-3: rgba(208, 216, 226, 0.03);
+    --circle-4: rgba(208, 216, 226, 0.02);
+    --circle-5: rgba(208, 216, 226, 0.05);
+    --circle-6: rgba(18, 18, 18, 0.8);
+
+    /* ✅ Optional: Add a very subtle accent for interactive elements */
+    --accent-hover: #5a677e;
+    --accent-active: #4a5568;
+}
+
+/* ======================
+   🧱 BASE RESET & LAYOUT
+====================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    transition: .4s ease-in-out;
+    display: flex;
+    overflow: hidden;
+}
+
+/* ======================
+   🌈 ENHANCED DECORATIVE CIRCLES — THEME-DRIVEN
+====================== */
+.circle {
+    position: fixed;
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    background-color: var(--circle-1);
+    top: -200px;
+    right: -150px;
+}
+
+.circle-2 {
+    width: 250px;
+    height: 250px;
+    background-color: var(--circle-2);
+    bottom: 150px;
+    left: -125px;
+}
+
+.circle-3 {
+    width: 500px;
+    height: 500px;
+    background-color: var(--circle-3);
+    bottom: -250px;
+    right: 50px;
+}
+
+.circle-4 {
+    width: 180px;
+    height: 180px;
+    background-color: var(--circle-4);
+    top: 40%;
+    left: 15%;
+}
+
+.circle-5 {
+    width: 320px;
+    height: 320px;
+    background-color: var(--circle-5);
+    top: 20%;
+    right: 25%;
+}
+
+/* ======================
+   📦 SIDEBAR — FULLY THEME-DRIVEN
+====================== */
+.sidebar-container {
+    background-color: var(--main-container-bg);
+    box-shadow: var(--container-shadow);
+    border-radius: 0 10px 10px 0;
+    padding: 16px;
+    transition: width 0.4s ease-in-out;
+    position: relative;
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-collapsed-width);
+    height: 100vh;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.sidebar-container.shrink {
+    width: var(--sidebar-collapsed-width);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.sidebar-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    gap: 8px;
+    overflow-y: hidden;
+    flex-shrink: 0;
+}
+
+.sidebar-hamburger {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    z-index: 10;
+}
+
+.sidebar-hamburger:hover {
+    background-color: var(--item-hover);
+}
+
+.sidebar-hamburger svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-color);
+}
+
+.sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    margin: 48px 0 0;
+    list-style: none;
+}
+
+.sidebar-listItem {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    animation: fadeInItem 0.6s forwards;
+    transition: background-color 0.2s ease;
+    transform: translateX(-16px);
+    opacity: 0;
+    padding: 8px 0;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.sidebar-listItem:nth-child(1) { animation-delay: 0.2s; }
+.sidebar-listItem:nth-child(2) { animation-delay: 0.4s; }
+.sidebar-listItem:nth-child(3) { animation-delay: 0.6s; }
+.sidebar-listItem:nth-child(4) { animation-delay: 0.8s; }
+.sidebar-listItem:nth-child(5) { animation-delay: 1.0s; }
+
+.sidebar-listItem.active a {
+    background-color: var(--main-bg);
+}
+
+.sidebar-listItem:not(.active) a:hover {
+    background-color: var(--item-hover);
+}
+
+.sidebar-listItem a {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    gap: 12px;
+}
+
+.sidebar-listItemText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.board-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--text-color);
+}
+
+.board-actions {
+    position: absolute;
+    right: 16px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar-listItem:hover .board-actions {
+    opacity: 1;
+}
+
+.sidebar-listItem .board-action-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--subtext-color);
+    transition: all 0.2s ease;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.sidebar-listItem .board-action-btn:hover {
+    background-color: var(--delete-hover);
+    color: var(--delete-color);
+}
+
+.add-board-btn,
+.sidebar-settings-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-color);
+    font-size: 14px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.add-board-btn:hover,
+.sidebar-settings-btn:hover {
+    background-color: var(--item-hover);
+}
+
+.add-board-btn svg,
+.sidebar-settings-btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar-settings-text {
+    white-space: nowrap;
+}
+
+.shrink .sidebar-listItem span,
+.shrink .add-board-btn span,
+.shrink .sidebar-settings-text {
+    display: none;
+}
+
+.shrink .sidebar-listItem a,
+.shrink .add-board-btn,
+.shrink .sidebar-settings-btn {
+    justify-content: center;
+    padding: 16px;
+}
+
+.shrink .sidebar-listItem .board-actions {
+    display: none;
+}
+
+@keyframes fadeInItem {
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ======================
+   🖥️ MAIN CONTENT
+====================== */
+.main-content {
+    flex: 1;
+    padding: 24px;
+    overflow: auto;
+    height: 100vh;
+    position: relative;
+
+    /* ✅ Ensure it stretches to full width */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.board-title {
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+}
+
+.board-title:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+}
+
+.board-title-input {
+    font-size: 32px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 2px solid var(--accent-color);
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
+    min-width: 200px;
+    font-family: inherit;
+}
+
+.add-list-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    box-shadow: 0 4px 20px rgba(var(--accent-color-rgb), 0.4);
+    transition: all 0.4s ease;
+    z-index: 50;
+}
+
+.add-list-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(var(--accent-color-rgb), 0.5);
+}
+
+.kanban-board {
+    display: flex;
+    gap: calc(24px * var(--zoom));
+    padding: 0 0 calc(80px * var(--zoom)) 0;
+    overflow-x: auto;
+    min-height: calc((100vh - 200px) * var(--zoom));
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+.kanban-board::-webkit-scrollbar {
+    height: 8px;
+}
+
+.kanban-board::-webkit-scrollbar-track {
+    background: var(--column-bg);
+    border-radius: 4px;
+}
+
+.kanban-board::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.kanban-board::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* ======================
+   📂 COLUMN — FULLY THEME-DRIVEN
+====================== */
+.column {
+    min-width: calc(320px * var(--zoom));
+    max-width: calc(320px * var(--zoom));
+    border-radius: calc(16px * var(--zoom));
+    padding: calc(20px * var(--zoom));
+    transition: all 0.4s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* ✅ LIGHT MODE: Transparent with a soft tint */
+body:not(.dark) .column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background-color: rgba(var(--accent-color-rgb), 0.1); /* 10% opacity — visible on white */
+    pointer-events: none;
+}
+
+/* ✅ DARK MODE: Transparent with a deeper tint */
+body.dark .column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background-color: rgba(var(--column-bg-rgb), 0.3); /* 12% opacity — visible on black */
+    pointer-events: none;
+}
+
+/* ✅ Remove border in dark mode */
+body.dark .column {
+    border: none;
+}
+
+/* ✅ Highlight state — always uses accent color */
+.column.highlight::before {
+    background-color: rgba(var(--accent-color-rgb), 0.15) !important;
+}
+
+.column.highlight {
+    background-color: rgba(var(--accent-color-rgb), 0.1) !important;
+    transition: background-color 0.2s ease;
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.column-title-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    flex: 1;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.column-title-container:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+}
+
+.column-title {
+    /* font-size: 18px; */
+    font-weight: 600;
+    color: var(--text-color);
+    margin-right: 8px;
+    flex: 1;
+    font-size: calc(18px * var(--zoom));
+}
+
+.column-title-input {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
+    width: 100%;
+    margin-right: 8px;
+    font-family: inherit;
+}
+
+.task-count {
+    font-size: 12px;
+    color: var(--subtext-color);
+    background-color: rgba(108, 117, 125, 0.1);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+body.dark .task-count {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.delete-list-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--delete-color);
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.column-title-container:hover .delete-list-btn {
+    opacity: 1;
+}
+
+.delete-list-btn:hover {
+    background-color: var(--delete-hover);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.add-card-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+}
+
+.add-card-btn:hover {
+    background-color: var(--accent-hover);
+    transform: scale(1.1);
+}
+
+.card-list {
+    min-height: 120px;
+    position: relative;
+}
+
+.card {
+    background-color: var(--card-bg);
+    /* border-radius: 12px; */
+    /* padding: 16px; */
+    /* margin-bottom: 12px; */
+    box-shadow: var(--shadow);
+    cursor: grab;
+    transition: background-color 0.4s ease,
+                color 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+    position: relative;
+    animation: fadeIn 0.4s ease;
+    padding: calc(16px * var(--zoom));
+    margin-bottom: calc(12px * var(--zoom));
+    border-radius: calc(12px * var(--zoom));
+    font-size: calc(14px * var(--zoom));
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.dragging {
+    opacity: 0.7;
+    transform: rotate(3deg);
+    z-index: 1000;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    transition: none;
+}
+
+.card-title {
+    font-weight: 500;
+    /* font-size: 15px; */
+    /* margin-bottom: 8px; */
+    color: var(--text-color);
+    font-size: calc(15px * var(--zoom));
+    margin-bottom: calc(8px * var(--zoom));
+}
+
+.card-description {
+    /* font-size: 13px; */
+    color: var(--subtext-color);
+    /* margin-bottom: 12px; */
+    line-height: 1.5;
+    font-size: calc(13px * var(--zoom));
+    margin-bottom: calc(12px * var(--zoom));
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--subtext-color);
+}
+
+.delete-card {
+    background: none;
+    border: none;
+    color: var(--delete-color);
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.card:hover .delete-card {
+    opacity: 1;
+}
+
+.delete-card:hover {
+    background: var(--delete-hover);
+}
+
+/* ======================
+   📍 PIN ICON — THEME-DRIVEN
+====================== */
+.pin-icon {
+    width: 16px;
+    height: 16px;
+    fill: var(--subtext-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.sidebar-listItem:hover .pin-icon,
+.card:hover .pin-icon {
+    opacity: 1;
+}
+
+.shrink .pin-icon,
+.sidebar-listItem:not(:hover) .pin-icon,
+.card:not(:hover) .pin-icon {
+    opacity: 0;
+}
+
+.pin-icon:hover {
+    background-color: var(--subtext-hover);
+    border-radius: 4px;
+}
+
+/* ======================
+   📝 ADD CARD FORM
+====================== */
+.add-card-form {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+    animation: slideDown 0.4s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.add-card-form input,
+.add-card-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    resize: none;
+    outline: none;
+    margin-bottom: 12px;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+}
+
+.add-card-form input:focus,
+.add-card-form textarea:focus {
+    border-color: var(--accent-color);
+}
+
+.add-card-form textarea {
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--subtext-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary:hover {
+    background-color: var(--subtext-hover);
+}
+
+/* ======================
+   🗃️ MODALS
+====================== */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.4s ease;
+}
+
+.modal-backdrop.active .modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--subtext-color);
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background-color: var(--subtext-hover);
+}
+
+.modal-form input,
+.modal-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+    margin-bottom: 12px;
+}
+
+.modal-form input:focus,
+.modal-form textarea:focus {
+    border-color: var(--accent-color);
+}
+
+.modal-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.confirm-modal {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.confirm-modal p {
+    margin-bottom: 24px;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.edit-card-modal .modal {
+    max-width: 550px;
+}
+
+.edit-card-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-card-form .form-group {
+    margin-bottom: 16px;
+}
+
+.edit-card-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* ======================
+   🎬 ANIMATIONS
+====================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================
+   📱 RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+    .sidebar-container {
+        position: absolute;
+        left: -100%;
+        transition: left 0.4s ease;
+        z-index: 100;
+    }
+
+    .sidebar-container.mobile-open {
+        left: 0;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .kanban-board {
+        gap: 16px;
+    }
+
+    .column {
+        min-width: 280px;
+        max-width: 280px;
+    }
+}
+
+/* ======================
+   🔄 THEME TRANSITIONS — GLOBAL
+====================== */
+.sidebar-container,
+.main-content,
+.kanban-board,
+.column,
+.card,
+.card-list,
+.add-card-form,
+.modal-backdrop,
+.modal,
+.btn,
+.board-title,
+.column-title,
+.task-count,
+.card-title,
+.card-description,
+.card-footer,
+.sidebar-listItem a,
+.add-board-btn,
+.add-list-btn,
+.board-icon,
+.delete-card,
+.delete-list-btn,
+.board-action-btn,
+.close-modal,
+.pin-icon,
+.setting-item,
+.settings-container {
+    transition: background-color 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease,
+                opacity 0.4s ease;
+}
+
+.kanban-board::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+    transition: background-color 0.4s ease;
+}
+
+.kanban-board::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Performance hint */
+.card, .modal, .column, .sidebar-container {
+    will-change: background-color, color, box-shadow;
+}
+
+/* ======================
+   🛠️ SETTINGS PAGE
+====================== */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px;
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--container-shadow);
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.settings-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.settings-header p {
+    color: var(--subtext-color);
+    font-size: 16px;
+}
+
+.settings-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.settings-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--main-bg);
+    transition: background-color 0.4s ease;
+}
+
+.setting-item:hover {
+    background-color: var(--item-hover);
+}
+
+.setting-item label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.setting-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* ======================
+   📌 PIN INDICATOR — THEME-DRIVEN
+====================== */
+.sidebar-listItem.active .pin-icon::after,
+.sidebar-listItem[data-board-id]:not(.active) .pin-icon::after,
+.column-header .pin-icon::after,
+.card .pin-icon::after {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    margin-left: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar-listItem.active .pin-icon:hover::after,
+.sidebar-listItem[data-board-id]:not(.active) .pin-icon:hover::after,
+.column-header .pin-icon:hover::after,
+.card .pin-icon:hover::after {
+    opacity: 1;
+}
+
+/* ======================
+   🧩 ICON GROUP — PIN + DELETE
+====================== */
+.icon-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 8px;
+}
+
+.column-title-container:not(:hover) .icon-group,
+.card:not(:hover) .icon-group {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.column-title-container:hover .icon-group,
+.card:hover .icon-group {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ======================
+   🧠 ZOOM CONTAINER
+====================== */
+#zoom-container {
+    display: inline-block;
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+    overflow: visible;
+}
+
+#kanbanBoard {
+    scroll-behavior: smooth;
+}
+
+/* ======================
+   🟢 RGB CONVERTER FOR ACCENT — REQUIRED FOR RGBA SHADOWS
+   This allows us to use `rgba(var(--accent-color-rgb), 0.1)` without hardcoding hex
+   We set it via JS on load — see below
+====================== */
