@@ -8,7 +8,6 @@
     "build": "electron-builder build --win --linux",
     "build-win": "electron-builder build --win",
     "build-linux": "electron-builder build --linux",
-
     "postinstall": "electron-builder install-app-deps"
   },
   "author": "Hashim Jafri",
@@ -32,7 +31,10 @@
       "!dist/**/*",
       "!*.md"
     ],
-    "asar": true
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**/*"
+    ]
   },
   "devDependencies": {
     "electron": "^32.3.3",
