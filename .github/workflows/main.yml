@@ -2,8 +2,7 @@ name: Build Electron App
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -11,6 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false  # ← Critical: don't cancel other jobs if one fails
 
     steps:
       - name: Checkout repo
@@ -21,13 +21,19 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Linux build deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 make g++
+
       - name: Install dependencies
         run: npm install
 
-      - name: Build for platform
+      - name: Build
         run: npm run build
 
-      - name: Upload build artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-build
