@@ -1,49 +1,32 @@
-name: Build Electron App
+name: Build Windows App
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - run: npm install
-      - run: npm run build-win
-      - uses: actions/upload-artifact@v4
-        with:
-          name: windows-build
-          path: dist/
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: sudo apt-get update && sudo apt-get install -y python3 make g++
-      - run: npm install
-      - run: npm run build-linux
-      - uses: actions/upload-artifact@v4
-        with:
-          name: linux-build
-          path: dist/
 
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows installer
+        run: npm run build-win
+
+      - name: Upload Windows build artifact
+        uses: actions/upload-artifact@v4
         with:
-          node-version: 18
-      - run: npm install
-      - run: npm run build-mac
-      - uses: actions/upload-artifact@v4
-        with:
-          name: macos-build
-          path: dist/
+          name: kanban-windows-installer
+          path: |
+            dist/Kanban*.exe
+            dist/win-unpacked/
